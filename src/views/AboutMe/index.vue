@@ -1,20 +1,25 @@
 <template>
-  <div class="home">
-    <div class="home__container">
-      <div class="home__container__title">
+  <div class="aboutme">
+      
+    <div class="aboutme__container">
+        <div class="aboutme__container__title">
         {{msg}}
       </div>
+        <card/>
+      
     </div>
 
   </div>
 </template>
 <script>
+import Card from '../../components/Card'
 
 export default {
-  name: 'Home',
+  name: 'AboutMe',
+  components:{Card},
   data: function () {
     return {
-      msg: 'Max Chen'
+      msg: 'Swipe me'
     }
   }
 }
@@ -23,7 +28,7 @@ export default {
 <style lang="scss" scoped>
 
 
-.home {
+.aboutme {
   height: 100%;
 
   &__container {
@@ -37,14 +42,15 @@ export default {
     &__title {
       color: #000;
       font-family: 'Canela';
-      font-size: 9rem;
+      font-size: 1rem;
       text-align: center;
     }
     
   }
+    
+}
 
   
-}
 
 
 </style>

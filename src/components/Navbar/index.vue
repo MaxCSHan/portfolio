@@ -1,8 +1,14 @@
 <template>
   <div class="navbar">
-      <div>Home</div>
-      <div>About Me</div>
-      <div>Works</div>
+    <router-link :to="{name:'Home'}">
+      <div class="link" >Home</div>
+    </router-link>
+    <router-link :to="{name:'AboutMe'}">
+    <div  class="link" >About Me</div>
+    </router-link>
+    <router-link :to="{name:'MyWork'}">
+      <div class="link" >Works</div>
+    </router-link>
   </div>
 </template>
 
@@ -20,7 +26,16 @@ export default {
 .navbar {
   display: flex;
   flex-direction: row;
+  font-family: 'Canela';
   justify-content: space-evenly;
   width: 100%;
+}
+
+.link {
+  color: #000;
+  font-size: 1rem;
+  text-decoration: none;
+
+
 }
 </style>

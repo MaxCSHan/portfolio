@@ -6,16 +6,22 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    name: 'Home',
     meta: { },
-    component: () => import(/* webpackChunkName: "default" */ '../views/Home'),
-    children: [
-      {
-        path: 'Home',
-        name: 'Home',
-        component: () =>
-          import(/* webpackChunkName: "auth" */ '../views/Home')
-      }
-    ]}
+    component: () => import(/* webpackChunkName: "default" */ '../views/Home')
+  },
+  {
+    path: '/MyWork',
+    name: 'MyWork',
+    component: () =>
+      import(/* webpackChunkName: "default" */ '../views/MyWork')
+  },
+  {
+    path: '/AboutMe',
+    name: 'AboutMe',
+    component: () =>
+      import(/* webpackChunkName: "default" */ '../views/AboutMe')
+  }
 
 ]
 

@@ -4,8 +4,13 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "build:stage": "vue-cli-service build --mode stage",
+    "build:production": "vue-cli-service build --mode production",
+    "lint:js": "vue-cli-service lint",
+    "lint:style": "stylelint --custom-formatter node_modules/stylelint-codeframe-formatter 'src/**/*.{vue,htm,html,css,sass,less,scss}'",
+    "lint:mock": "eslint ./mock/**/*.js --ext .js",
+    "serve:mock": "nodemon ./mock/app.js --exec \"npm run lint:mock && node\"",
+    "upload:stage": "vue-cli-service build --mode stage && node ./autoScript/upload.stage.js"
   },
   "dependencies": {
     "axios": "^0.20.0",

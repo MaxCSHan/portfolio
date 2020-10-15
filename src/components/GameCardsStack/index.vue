@@ -1,15 +1,16 @@
 <template>
   <div class="cards">
-    <GameCard
+    <game-card
       v-for="(card, index) in cards"
-      :key="card"
+      :key="card.username+index"
       :card="card"
       :is-current="index === 0"
-      @cardAccepted="cardAccepted"
+      @cardAccepted="cardAccepted(card)"
       @cardRejected="cardRejected"
       @cardSkipped="cardSkipped"
       @hideCard="hideCard"
     />
+    <div class="empty" v-if="cards.length<1">There's nothing left behind.</div>
   </div>
 </template>
 
@@ -27,8 +28,8 @@ export default {
     }
   },
   methods:{
-      cardAccepted(){
-          this.$emit('cardAccepted')
+      cardAccepted(card){
+          this.$emit('cardAccepted',card)
       },
       cardRejected(){
           this.$emit('cardRejected')
@@ -50,5 +51,9 @@ export default {
   margin: 50px;
   position: relative;
   width: 40vh;
+}
+
+.empty {
+  text-align: center;
 }
 </style>

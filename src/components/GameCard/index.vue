@@ -9,7 +9,12 @@
     class="card"
     :style="{ transform: transformString }"
   >
-    <h3 class="cardtitle">{{ card }}</h3>
+  <div
+    class="avatar"
+            :style="{ 'background-image': 'url(' + card.avatar + ')' }"
+          />
+    <h3 class="cardtitle">{{ card.username }}</h3>
+    
   </div>
 </template>
 
@@ -30,7 +35,7 @@ export default {
 
   props: {
     card: {
-      type: String,
+      type: Object,
       required: true
     },
     isCurrent: {
@@ -188,6 +193,7 @@ $fs-card-title: 1.125em;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   color: $c-white;
   display: flex;
+  flex-direction: column;
   font-size: $fs-h2;
   font-weight: $fw-bold;
   height: 50vh;
@@ -250,4 +256,17 @@ $fs-card-title: 1.125em;
     }
   }
 }
+
+.avatar {
+  align-items: center;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 10%;
+  display: inline-box;
+  display: inline-flexbox;
+  display: inline-flex;
+  height: 20rem;
+  justify-content: center;
+  width: 20rem;}
 </style>

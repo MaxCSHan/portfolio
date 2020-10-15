@@ -1,6 +1,6 @@
 <template>
 <div class=app>
-     <navbar />
+     <navbar class="navbar"/>
 
     <router-view/>
 </div>
@@ -43,7 +43,10 @@ body {
   flex: 1;
   flex-direction: column;
   height: 100%;
+}
 
+.navbar {
+  position: fixed;
 }
 </style>
 

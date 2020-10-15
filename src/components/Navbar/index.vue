@@ -1,14 +1,15 @@
 <template>
   <div class="navbar">
-    <router-link :to="{name:'Home'}">
-      <div class="link" >Home</div>
+    <router-link :to="{name:'Home'}"  class="link" >
+      Home
     </router-link>
-    <router-link :to="{name:'AboutMe'}">
-    <div  class="link" >About Me</div>
+    <router-link :to="{name:'AboutMe'}"  class="link" >
+      About Me
     </router-link>
-    <router-link :to="{name:'MyWork'}">
-      <div class="link" >Works</div>
+    <router-link :to="{name:'MyWork'}" class="link" >
+      My Works
     </router-link>
+    
   </div>
 </template>
 
@@ -28,14 +29,16 @@ export default {
   flex-direction: row;
   font-family: 'Canela';
   justify-content: space-evenly;
+  margin: 1vh;
   width: 100%;
 }
 
 .link {
+  background: none;
+  border: 0;
   color: #000;
+  cursor: pointer;
   font-size: 1rem;
-  text-decoration: none;
-
-
+  outline: none;
 }
 </style>

@@ -1,0 +1,21 @@
+[debug] [2021-03-27T09:15:05.401Z] ----------------------------------------------------------------------
+[debug] [2021-03-27T09:15:05.403Z] Command:       /Users/maxchen/.nvm/versions/node/v15.4.0/bin/node /Users/maxchen/.nvm/versions/node/v15.4.0/bin/firebase init
+[debug] [2021-03-27T09:15:05.404Z] CLI Version:   9.4.0
+[debug] [2021-03-27T09:15:05.404Z] Platform:      darwin
+[debug] [2021-03-27T09:15:05.404Z] Node Version:  v15.4.0
+[debug] [2021-03-27T09:15:05.405Z] Time:          Sat Mar 27 2021 17:15:05 GMT+0800 (Taipei Standard Time)
+[debug] [2021-03-27T09:15:05.405Z] ----------------------------------------------------------------------
+[debug] [2021-03-27T09:15:05.405Z] 
+[debug] [2021-03-27T09:15:05.411Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-03-27T09:15:05.412Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/maxchen/Projects/portfolio
+

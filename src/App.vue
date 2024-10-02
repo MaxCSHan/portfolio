@@ -34,6 +34,7 @@ html {
 }
 
 body {
+  background: #f5f7fa;
   height: 100%;
   margin: 0;
 }
@@ -46,7 +47,9 @@ body {
 }
 
 .navbar {
+  background: #f5f7fa;
   position: fixed;
+  z-index: 999;
 }
 </style>
 

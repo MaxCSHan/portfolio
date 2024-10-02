@@ -2,10 +2,3 @@
 @import '../styles/colors';
 @import '../styles/typography';
 @import '../styles/animations';
-$cardsTotal: 3;
-$cardsWidth: 300px;
-$cardsPositionOffset: 55vh * 0.06;
-$cardsScaleOffset: 0.08;
-$defaultTranslation: $cardsPositionOffset * $cardsTotal;
-$defaultScale: 1 - ($cardsScaleOffset * $cardsTotal);
-$fs-card-title: 1.125em;

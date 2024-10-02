@@ -9,9 +9,9 @@ const faker = require('faker')
 
 // 角色頭貼與名稱。
 router.get('/api/Role/getUser', function (req, res) {
-  const data = genDatas(faker.random.number(180), (index) => {
+  const data = genDatas(faker.random.number(20), (index) => {
     return {
-      username: faker.name.lastName(), avatar: faker.image.avatar()
+      username: faker.name.lastName(), avatar: faker.image.avatar(), age: faker.random.number({ min: 0, max: 116 }), location: { latitude: faker.address.latitude(), longitude: faker.address.longitude() }, intro: faker.lorem.paragraph()
     }
   })
 

@@ -7,22 +7,31 @@
       iscurrent: isCurrent
     }"
     class="card"
-    :style="{ transform: transformString }"
+    :style="{ transform: transformString ,'background-image': 'url(' + card.avatar + ')'}"
   >
-  <div
-    class="avatar"
-            :style="{ 'background-image': 'url(' + card.avatar + ')' }"
-          />
-    <h3 class="cardtitle">{{ card.username }}</h3>
-    
+
+    <div class="info">
+
+      <div class="person">
+        <div class="cardtitle">{{ card.username }}</div>
+
+        <div class="cardtitle">{{ card.age }}</div>
+      </div>
+      <div class="second">
+        <div>{{distance(card.location)}}公里遠 </div>
+
+      </div>
+
+    </div>
+
   </div>
 </template>
 
 <script>
-import interact from "interact.js";
-const ACCEPT_CARD = "cardAccepted";
-const REJECT_CARD = "cardRejected";
-const SKIP_CARD = "cardSkipped";
+import interact from 'interact.js'
+const ACCEPT_CARD = 'cardAccepted'
+const REJECT_CARD = 'cardRejected'
+const SKIP_CARD = 'cardSkipped'
 
 export default {
   static: {
@@ -54,120 +63,136 @@ export default {
         y: 0,
         rotation: 0
       }
-    };
+    }
   },
 
   computed: {
     transformString() {
       if (!this.isInteractAnimating || this.isInteractDragged) {
-        const { x, y, rotation } = this.interactPosition;
-        return `translate3D(${x}px, ${y}px, 0) rotate(${rotation}deg)`;
+        const { x, y, rotation } = this.interactPosition
+        return `translate3D(${x}px, ${y}px, 0) rotate(${rotation}deg)`
       }
 
-      return null;
+      return null
     }
   },
 
   mounted() {
-    const element = this.$refs.interactElement;
+    const element = this.$refs.interactElement
+    // console.log(element)
+    element.addEventListener('keyup', $event => this.$emit('keyup', $event))
+
+    // ['keyup','keydown','keypress','focus','blur'].map(event => {element.input.addEventListener(event, $event => this.$emit(event, $event))})
 
     interact(element).draggable({
       onstart: () => {
-        this.isInteractAnimating = false;
+        this.isInteractAnimating = false
       },
 
-      onmove: event => {
-        const {
-          interactMaxRotation,
-          interactXThreshold
-        } = this.$options.static;
-        const x = this.interactPosition.x + event.dx;
-        const y = this.interactPosition.y + event.dy;
+      onmove: (event) => {
+        const { interactMaxRotation, interactXThreshold } = this.$options.static
+        const x = this.interactPosition.x + event.dx
+        const y = this.interactPosition.y + event.dy
 
-        let rotation = interactMaxRotation * (x / interactXThreshold);
+        let rotation = interactMaxRotation * (x / interactXThreshold)
 
-        if (rotation > interactMaxRotation) rotation = interactMaxRotation;
-        else if (rotation < -interactMaxRotation)
-          rotation = -interactMaxRotation;
+        if (rotation > interactMaxRotation) rotation = interactMaxRotation
+        else if (rotation < -interactMaxRotation) rotation = -interactMaxRotation
 
-        this.interactSetPosition({ x, y, rotation });
+        this.interactSetPosition({ x, y, rotation })
       },
 
       onend: () => {
-        const { x, y } = this.interactPosition;
-        const { interactXThreshold, interactYThreshold } = this.$options.static;
-        this.isInteractAnimating = true;
+        const { x, y } = this.interactPosition
+        const { interactXThreshold, interactYThreshold } = this.$options.static
+        this.isInteractAnimating = true
 
-        if (x > interactXThreshold) this.playCard(ACCEPT_CARD);
-        else if (x < -interactXThreshold) this.playCard(REJECT_CARD);
-        else if (y > interactYThreshold) this.playCard(SKIP_CARD);
-        else this.resetCardPosition();
+        if (x > interactXThreshold) this.playCard(ACCEPT_CARD)
+        else if (x < -interactXThreshold) this.playCard(REJECT_CARD)
+        else if (y > interactYThreshold) this.playCard(SKIP_CARD)
+        else this.resetCardPosition()
       }
-    });
+    })
   },
 
   beforeDestroy() {
-    interact(this.$refs.interactElement).unset();
+    interact(this.$refs.interactElement).unset()
   },
 
   methods: {
     hideCard() {
       setTimeout(() => {
-        this.isShowing = false;
-        this.$emit("hideCard", this.card);
-      }, 300);
+        this.isShowing = false
+        this.$emit('hideCard', this.card)
+      }, 300)
     },
 
     playCard(interaction) {
-      const {
-        interactOutOfSightXCoordinate,
-        interactOutOfSightYCoordinate,
-        interactMaxRotation
-      } = this.$options.static;
+      const { interactOutOfSightXCoordinate, interactOutOfSightYCoordinate, interactMaxRotation } = this.$options.static
 
-      this.interactUnsetElement();
+      this.interactUnsetElement()
 
       switch (interaction) {
         case ACCEPT_CARD:
           this.interactSetPosition({
             x: interactOutOfSightXCoordinate,
             rotation: interactMaxRotation
-          });
-          this.$emit(ACCEPT_CARD);
-          break;
+          })
+          this.$emit(ACCEPT_CARD)
+          break
         case REJECT_CARD:
           this.interactSetPosition({
             x: -interactOutOfSightXCoordinate,
             rotation: -interactMaxRotation
-          });
-          this.$emit(REJECT_CARD);
-          break;
+          })
+          this.$emit(REJECT_CARD)
+          break
         case SKIP_CARD:
           this.interactSetPosition({
             y: interactOutOfSightYCoordinate
-          });
-          this.$emit(SKIP_CARD);
-          break;
+          })
+          this.$emit(SKIP_CARD)
+          break
       }
 
-      this.hideCard();
+      this.hideCard()
     },
 
     interactSetPosition(coordinates) {
-      const { x = 0, y = 0, rotation = 0 } = coordinates;
-      this.interactPosition = { x, y, rotation };
+      const { x = 0, y = 0, rotation = 0 } = coordinates
+      this.interactPosition = { x, y, rotation }
     },
 
     interactUnsetElement() {
-      interact(this.$refs.interactElement).unset();
-      this.isInteractDragged = true;
+      interact(this.$refs.interactElement).unset()
+      this.isInteractDragged = true
     },
-
     resetCardPosition() {
-      this.interactSetPosition({ x: 0, y: 0, rotation: 0 });
+      this.interactSetPosition({ x: 0, y: 0, rotation: 0 })
+    },
+    toRad  (value) {
+        return (value * Math.PI) / 180
+      }
+    ,
+    distance(location) {
+      var lat2 = location.latitude
+      var lon2 = location.longitude
+      var lat1 = 25.032969
+      var lon1 = 121.565414
+
+      var R = 6371 // km
+      //has a problem with the .toRad() method below.
+      var x1 = lat2 - lat1
+      var dLat = this.toRad(x1)
+      var x2 = lon2 - lon1
+      var dLon = this.toRad(x2)
+      var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(this.toRad(lat1)) * Math.cos(this.toRad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2)
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+        return  Math.round(R * c)
+     
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -179,17 +204,21 @@ $cards-position-offset: 55vh * 0.06;
 $cards-scale-offset: 0.08;
 $default-translation: $cards-position-offset * $cards-total;
 $default-scale: 1 - ($cards-scale-offset * $cards-total);
-$fs-card-title: 1.125em;
+$fs-card-title: 2em;
+$fs-card-age: 1em;
 
 .card {
   @include card();
   @include absolute(0);
   @include sizing(100% 80vw);
-  @include flex-center();
+  //   @include flex-center();
 
-  background-image: linear-gradient(-180deg,
-  $primary-gradient-start 2%,
-  $primary-gradient-end 100%);
+  //   background-image: linear-gradient(-180deg,
+  //   $primary-gradient-start 2%,
+  //   $primary-gradient-end 100%);
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-size: cover;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   color: $c-white;
   display: flex;
@@ -224,9 +253,31 @@ $fs-card-title: 1.125em;
   }
 }
 
+.info {
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  margin-bottom: 2vh;
+  margin-top: auto;
+}
+
+.person {
+  display: flex;
+  flex-direction: row;
+}
+
 .cardtitle {
   font-size: $fs-card-title;
-  margin: 0 0 15px;
+  margin-left: 1vh;
+}
+
+.age {
+  font-size: $fs-card-age;
+}
+
+.second {
+  margin-left: 1vh;
 }
 
 @for $i from 1 through $cards-total {
@@ -268,5 +319,6 @@ $fs-card-title: 1.125em;
   display: inline-flex;
   height: 20rem;
   justify-content: center;
-  width: 20rem;}
+  width: 20rem;
+}
 </style>

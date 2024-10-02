@@ -9,6 +9,9 @@
     <router-link :to="{name:'MyWork'}" class="link" >
       My Works
     </router-link>
+    <router-link :to="{name:'Chat'}" class="link" >
+      Chat
+    </router-link>
     
   </div>
 </template>
@@ -29,7 +32,7 @@ export default {
   flex-direction: row;
   font-family: 'Canela';
   justify-content: space-evenly;
-  margin: 1vh;
+  margin: 0 1vh;
   width: 100%;
 }
 

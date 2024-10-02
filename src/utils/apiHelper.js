@@ -99,6 +99,18 @@ const get = function (url) {
     .catch(errorHandler)
 }
 
+const getIns = function (url) {
+  const config = {}
+  const insAPI = axios.create({
+    baseURL: 'https://www.instagram.com/explore/tags'
+})
+  
+  return insAPI
+    .get(url, config)
+    .then(res => successHandler(res, {}))
+    .catch(errorHandler)
+}
+
 /** @description 使用 axios delete 方法呼叫 api
  * @param {String} url api 路徑
  * @return {Object} Promise 物件
@@ -117,5 +129,6 @@ export {
   get,
   postWithFormData,
   del,
+  getIns,
   errorCodes
 }

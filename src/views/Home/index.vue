@@ -14,10 +14,25 @@
         appear
         name="slide-fade"
       >
-        <div
-          class="home__container__photoholder"
-          :style="{ 'background-image': 'url(https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/1fb71899287637.5eefa7f5b0ab2.jpg)' }"
-        />
+        <div class="home__container__photoholder">
+            <div
+              :key="1"
+              class="photo"
+              :style="{ 'background-image': 'url(https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/1fb71899287637.5eefa7f5b0ab2.jpg)' }"
+            />
+            <div
+              :key="2"
+              class="photo"
+              :style="{ 'background-image': 'url(https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/61f75a99287637.5eefa7f5b2206.jpg)' }"
+            />
+            <div
+              :key="3"
+              class="photo"
+              :style="{ 'background-image': 'url(https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/501f5299287637.5eefa7f5adf81.jpg)' }"
+            />
+
+        </div>
+
       </transition>
 
     </div>
@@ -59,15 +74,36 @@ export default {
 
     &__photoholder {
       align-items: center;
-      background-color: #fff;
-      background-repeat: no-repeat;
-      background-size: cover;
-      display: inline-box;
-      display: inline-flexbox;
-      display: inline-flex;
       height: 25rem;
-      justify-content: center;
+      overflow: hidden;
+      transform: rotateX(0);
       width: 20rem;
+    }
+  }
+}
+
+// .mask {
+//   align-items: center;
+//   animation: move 10s ease-in-out infinite;
+//   height: 25rem;
+//   overflow: hidden;
+//   position: absolute;
+//   transform: rotateX(0);
+//   transform-origin: bottom right;
+//   transform-style: preserve-3d;
+//   width: 20rem;
+// }
+
+.photo {
+  // animation-play-state: paused;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 25rem;
+  position: absolute;
+  width: 20rem;
+  @for $i from 1 through 4 {
+    &:nth-of-type(#{$i}) {
+      animation-delay: 10s * ($i);
     }
   }
 }
@@ -83,11 +119,11 @@ export default {
 }
 
 .slide-fade-enter-active {
-  transition: all 1s ease;
+  transition: all 1.5s ease;
 }
 
 .slide-fade-leave-active {
-  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+  transition: all 1.5s cubic-bezier(1, 0.5, 0.8, 1);
 }
 
 .slide-fade-enter,
